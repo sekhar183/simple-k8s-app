@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  replicas: 2  # Adjust the replica count as needed
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: sekhar18/frontend:latest  # Replace with your image
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: frontend-config
